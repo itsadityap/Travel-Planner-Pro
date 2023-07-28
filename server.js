@@ -13,6 +13,9 @@ const port = process.env.SERVER_PORT || 4000;
 app.use(cors());
 app.use(helmet());
 app.use(fileUpload());
+app.use((req, res, next) => {
+    express.json()(req, res, next);
+});
 
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGO_DB_URL, {
@@ -28,8 +31,17 @@ mongoose.connect(process.env.MONGO_DB_URL, {
     //logger.backendLoggerService.log({"level": "error", "message": err});
 });
 
+//Import Routes
+const authUserRoute = require('./routes/authUser');
+const authAdminRoute = require('./routes/authAdmin');
+
+//Implement Routes
+app.use('/api/v1', authUserRoute);
+app.use('/api/v1/admin', authAdminRoute);
+
+
 app.get('/test', (req, res) => {
-    res.status(200).json({message: "Hello World from Rywards Backend Servers!"});
+    res.status(200).json({message: "Hello World from Traveller Backend Servers!"});
 });
 
 // Starting the server.
