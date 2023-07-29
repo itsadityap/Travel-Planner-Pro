@@ -4,7 +4,7 @@ const { validationResult } = require('express-validator');
 
 //Model and DTO imports
 const AdminModel = require('../../models/admin');
-const AdminDTO = require('../../dtos/adminDTO');
+const AdminDTO = require('../../dtos/adminDto');
 
 exports.signup = async (req, res) => {
     try
