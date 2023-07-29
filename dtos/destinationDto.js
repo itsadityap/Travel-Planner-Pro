@@ -1,5 +1,6 @@
 // ResponseDTO
 class GetDestination{
+    id;
     destinationName;
     cityName;
     latitude;
@@ -15,7 +16,8 @@ class GetDestination{
     weatherIcon;
     currentTemperature;
 
-    constructor(destinationName, cityName, latitude, longitude, landmarks, state, description, images, avgTravelExpenses, attractions, category, currentWeather, weatherIcon, currentTemperature){
+    constructor(id,destinationName, cityName, latitude, longitude, landmarks, state, description, images, avgTravelExpenses, attractions, category, currentWeather, weatherIcon, currentTemperature){
+        this.id = id;
         this.destinationName = destinationName;
         this.cityName = cityName;
         this.latitude = latitude;

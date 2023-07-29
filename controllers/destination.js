@@ -89,6 +89,7 @@ async function getAllDestinations(req, res) {
         }
 
         const destinationDtoObj = destinations.map(destination => new GetDestination(
+            destination._id,
             destination.destinationName,
             destination.cityName,
             destination.latitude,
