@@ -35,21 +35,20 @@ mongoose.connect(process.env.MONGO_DB_URL, {
 const authUserRoute = require('./routes/authUser');
 const userDestinationRoute = require('./routes/userDestination');
 const userReviewRoute = require('./routes/reviews');
+const userItenaryRoute = require('./routes/itenery');
 
 //Admin Routes Imports
 const destinationRoute = require('./routes/destination');
 const authAdminRoute = require('./routes/authAdmin');
 
-
-
 //Implement Routes
 app.use('/api/v1', authUserRoute);
 app.use('/api/v1', userDestinationRoute);
 app.use('/api/v1', userReviewRoute);
+app.use('/api/v1', userItenaryRoute);
 
 app.use('/api/v1/admin', authAdminRoute);
 app.use('/api/v1/admin', destinationRoute);
-
 
 app.get('/test', (req, res) => {
     res.status(200).json({message: "Hello World from Traveller Backend Servers!"});
