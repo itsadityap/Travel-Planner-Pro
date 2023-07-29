@@ -33,6 +33,7 @@ async function getDestination(req, res) {
         });
 
         const destinationDtoObj = new GetDestination(
+            destination._id,
             destination.destinationName,
             destination.cityName,
             destination.latitude,
@@ -68,7 +69,6 @@ async function getDestination(req, res) {
     }
     catch(err)
     {
-        console.log(err);
         return res.status(500).json({
             message: 'Error in fetching destination',
             error: err

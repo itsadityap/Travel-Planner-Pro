@@ -14,7 +14,6 @@ router.get('/created-itenery-list',
             authUser,
             createdItenRoute);
             
-
 async function addIteneryRoute(req, res) {
     iteneryController
         .addItenery(req, res)

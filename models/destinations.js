@@ -30,7 +30,7 @@ const destinationSchema = new mongoose.Schema({
         'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura',
         'Uttarakhand', 'Uttar Pradesh', 'West Bengal', 'Andaman and Nicobar Islands',
         'Chandigarh', 'Dadra and Nagar Haveli', 'Daman and Diu', 'Delhi', 'Lakshadweep',
-        'Puducherry']
+        'Puducherry', 'Ladakh']
     },
     description: {
         type: String,
