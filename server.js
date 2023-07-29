@@ -34,6 +34,7 @@ mongoose.connect(process.env.MONGO_DB_URL, {
 //Import Routes
 const authUserRoute = require('./routes/authUser');
 const userDestinationRoute = require('./routes/userDestination');
+const userReviewRoute = require('./routes/reviews');
 
 //Admin Routes Imports
 const destinationRoute = require('./routes/destination');
@@ -44,6 +45,7 @@ const authAdminRoute = require('./routes/authAdmin');
 //Implement Routes
 app.use('/api/v1', authUserRoute);
 app.use('/api/v1', userDestinationRoute);
+app.use('/api/v1', userReviewRoute);
 
 app.use('/api/v1/admin', authAdminRoute);
 app.use('/api/v1/admin', destinationRoute);

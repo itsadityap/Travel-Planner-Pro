@@ -1,7 +1,9 @@
 const axios = require('axios');
 
 const { GetDestination } = require('../dtos/destinationDto');
+const { ReviewsResponse } = require('../dtos/reviewsDto');
 const destinationModel = require('../models/destinations')
+const ReviewsModel = require('../models/reviews');
 
 async function getDestination(req, res) {
     try
@@ -12,8 +14,10 @@ async function getDestination(req, res) {
                 message: 'Invalid destination_id'
             });
         }
-        const destination = await destinationModel.findById(req.body.destination_id);
-
+        
+        const destination = await destinationModel.findById(req.body.destination_id).lean();
+        const reviews = await ReviewsModel.find({destination_id: req.body.destination_id}).lean();
+        
         if(!destination)
         {
             return res.status(404).json({
@@ -21,8 +25,13 @@ async function getDestination(req, res) {
             });
         }
 
-        const weatherResponse = await axios.get(`https://api.weatherapi.com/v1/current.json?q=${destination.cityName}&key=${process.env.WEATHER_API}&aqi=no`);
-        
+        const weatherResponse = await axios.get(`https://weatherapi-com.p.rapidapi.com/current.json?q=${destination.cityName}`, {
+            headers: {
+                'X-RapidAPI-Key': process.env.WEATHER_API_KEY,
+                'X-RapidAPI-Host': process.env.WEATHER_API_HOST
+            }
+        });
+
         const destinationDtoObj = new GetDestination(
             destination.destinationName,
             destination.cityName,
@@ -40,13 +49,26 @@ async function getDestination(req, res) {
             weatherResponse.data.current.temp_c,
         );
 
+        const reviewsDtoObj = reviews.map(review => new ReviewsResponse(
+            review._id,
+            review.destination_id,
+            review.user_id,
+            review.rating,
+            review.review,
+            review.createdAt
+        ));
+
         return res.status(200).json({
             message: 'Destination fetched successfully',
-            data: destinationDtoObj
+            data: {
+                destinationDtoObj,
+                reviewsDtoObj
+            }
         });
     }
     catch(err)
     {
+        console.log(err);
         return res.status(500).json({
             message: 'Error in fetching destination',
             error: err

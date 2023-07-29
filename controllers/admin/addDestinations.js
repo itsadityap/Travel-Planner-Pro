@@ -7,7 +7,12 @@ async function addDestination(req, res) {
     try
     {
         // Axios call to get weather and coordinates
-        const weatherResponse = await axios.get(`https://api.weatherapi.com/v1/current.json?q=${req.body.cityName}&key=${process.env.WEATHER_API}&aqi=no`);
+        const weatherResponse = await axios.get(`https://weatherapi-com.p.rapidapi.com/current.json?q=${req.body.cityName}`, {
+            headers: {
+                'X-RapidAPI-Key': process.env.WEATHER_API_KEY,
+                'X-RapidAPI-Host': process.env.WEATHER_API_HOST
+            }
+        });
         
         // Create destination object using DTO
         const destinationDtoObj = new CreateDestionation(

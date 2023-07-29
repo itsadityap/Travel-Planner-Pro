@@ -13,13 +13,11 @@ const reviewSchema = new mongoose.Schema({
     },
     destination_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Destination',
-        required: true,
+        ref: 'Destination'
     },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
+        ref: 'User'
     },
 }, { timestamps: true });
 

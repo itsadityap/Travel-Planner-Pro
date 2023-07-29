@@ -44,7 +44,6 @@ exports.signup = async (req, res) => {
     }
     catch(err)
     {
-        console.log(err);
         return res.status(500).json({
             message: "Internal Server Error, while creating admin"
         });
