@@ -80,7 +80,7 @@ async function createdIteniries(req, res)
                 message: 'Itenery does not exist'
             });
         }
-        const itenObject = iten.map(it => new IteneryResponse(it.planName, it.destination, it.travelStartDate, it.travelEndDate, it.travelMode,it.details ,it.travelMode));
+        const itenObject = iten.map(it => new IteneryResponse(it._id, it.planName, it.destination, it.travelStartDate, it.travelEndDate, it.travelMode,it.details ,it.travelMode));
 
         return res.status(200).json({
             message:"Itenery Fetched Succesfully",

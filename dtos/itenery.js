@@ -21,6 +21,7 @@ class ItenaryRequest {
 }
 
 class IteneryResponse {
+    id;
     planName;
     destination;
     travelStartDate;
@@ -30,7 +31,8 @@ class IteneryResponse {
     estimatedCost;
     createdBy;
 
-    constructor(planName, destination, travelStartDate, travelEndDate, travelMode, details, estimatedCost, createdBy) {
+    constructor(id,planName, destination, travelStartDate, travelEndDate, travelMode, details, estimatedCost, createdBy) {
+        this.id = id;
         this.planName = planName;
         this.destination = destination;
         this.travelStartDate = travelStartDate;
