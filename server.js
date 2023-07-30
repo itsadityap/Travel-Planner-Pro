@@ -4,7 +4,6 @@ const app = express();
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const cors = require("cors");
-const fileUpload = require('express-fileupload');
 const logger = require('./services/logger');
 
 const port = process.env.SERVER_PORT || 4000;
@@ -12,7 +11,6 @@ const port = process.env.SERVER_PORT || 4000;
 // Default Middlewares
 app.use(cors());
 app.use(helmet());
-app.use(fileUpload());
 app.use((req, res, next) => {
     express.json()(req, res, next);
 });
