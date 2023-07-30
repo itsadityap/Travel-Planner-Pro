@@ -50,8 +50,10 @@ async function getDestination(req, res) {
             weatherResponse.data.current.temp_c,
         );
 
+        reviews.sort((a, b) => b.createdAt - a.createdAt);
         const reviewsDtoObj = reviews.map(review => new ReviewsResponse(
             review._id,
+            req.userData.name,
             review.destination_id,
             review.user_id,
             review.rating,

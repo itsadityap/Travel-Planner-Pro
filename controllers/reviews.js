@@ -35,8 +35,8 @@ async function addReview(req, res) {
         }
 
         // Check if user has already reviewed this destination
-        const reviewObj = await ReviewModel.findOne({ user_id, destination_id }).lean();
-        if(reviewObj)
+        const reviewedBefore = await ReviewModel.findOne({destination_id: destination_id, user_id: user_id}).lean();
+        if(reviewedBefore)
         {
             return res.status(400).json({
                 message: 'You have already reviewed this destination, you can add only one review per destination'
@@ -44,10 +44,9 @@ async function addReview(req, res) {
         }
 
         // Create review object using DTO
-        const reviewRequest = new ReviewsRequest(destination_id, req.userData.userID, rating, review);
-
-        // Save review object to database
-        await ReviewModel.create(reviewRequest);
+        let reviews = new ReviewsRequest(req.userData.name ,destination_id, req.userData.userID, rating, review);
+        
+        await ReviewModel.create(reviews);
 
         return res.status(200).json({
             message: 'Review added successfully'
