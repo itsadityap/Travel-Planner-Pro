@@ -37,6 +37,7 @@ const userDestinationRoute = require('./routes/userDestination');
 const userReviewRoute = require('./routes/reviews');
 const userItenaryRoute = require('./routes/itenery');
 const userSavedItemsRoute = require('./routes/saveFavourites');
+const userSearchDestinationRoute = require('./routes/searchDestination');
 
 //Admin Routes Imports
 const destinationRoute = require('./routes/destination');
@@ -48,6 +49,7 @@ app.use('/api/v1', userDestinationRoute);
 app.use('/api/v1', userReviewRoute);
 app.use('/api/v1', userItenaryRoute);
 app.use('/api/v1', userSavedItemsRoute);
+app.use('/api/v1', userSearchDestinationRoute);
 
 app.use('/api/v1/admin', authAdminRoute);
 app.use('/api/v1/admin', destinationRoute);
