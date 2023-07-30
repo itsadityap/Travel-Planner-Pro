@@ -53,7 +53,7 @@ async function seeItenery(req, res)
             });
         }
 
-        const itenObject = new IteneryResponse(iten.planName, iten.destination, iten.travelStartDate, iten.travelEndDate, iten.travelMode,iten.details ,iten.travelMode)
+        const itenObject = new IteneryResponse(iten._id, iten.planName, iten.destination, iten.travelStartDate, iten.travelEndDate, iten.travelMode,iten.details ,iten.travelMode)
         
         return res.status(200).json({
             message:"Itenery Fetched Succesfully",
