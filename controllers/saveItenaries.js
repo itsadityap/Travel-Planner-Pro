@@ -6,7 +6,7 @@ async function saveIteneriesToggle(req, res) {
     try
     {
         const { iteneryId } = req.body;
-        if (!iteneryId || iteneryId.length != 24) return res.status(400).json({ message: 'Itenery id not provided' });
+        if (!iteneryId || iteneryId.length != 24) return res.status(400).json({ error: 'Itenery id not provided' });
         const userId = req.userData.userID;
 
         const savedIteneries = await SavedItemsModel.findOne({ savedBy: userId });

@@ -11,7 +11,7 @@ async function getDestination(req, res) {
         if(!req.body.destination_id || req.body.destination_id.length != 24)
         {
             return res.status(400).json({
-                message: 'Invalid destination_id'
+                error: 'Invalid destination_id'
             });
         }
         

@@ -13,7 +13,7 @@ async function addReview(req, res) {
         if(destination_id == null || destination_id == null || destination_id.length != 24 || user_id.length != 24)
         {
             return res.status(400).json({
-                message: 'Invalid destination_id or user_id'
+                error: 'Invalid destination_id or user_id'
             });
         }
 
@@ -21,7 +21,7 @@ async function addReview(req, res) {
         if(!destinationObj)
         {
             return res.status(400).json({
-                message: 'Destination does not exist, please check destination_id'
+                error: 'Destination does not exist, please check destination_id'
             });
         }
 
@@ -30,7 +30,7 @@ async function addReview(req, res) {
         if(!userObj)
         {
             return res.status(400).json({
-                message: 'User does not exist, please check user_id'
+                error: 'User does not exist, please check user_id'
             });
         }
 
@@ -39,7 +39,7 @@ async function addReview(req, res) {
         if(reviewedBefore)
         {
             return res.status(400).json({
-                message: 'You have already reviewed this destination, you can add only one review per destination'
+                error: 'You have already reviewed this destination, you can add only one review per destination'
             });
         }
 

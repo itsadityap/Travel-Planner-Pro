@@ -38,7 +38,7 @@ async function searchDestination(req, res) {
     try 
     {
         const { keyword } = req.body;
-        if(!keyword || keyword.length === 0) return res.status(400).json({ message: "Please provide a keyword" });
+        if(!keyword || keyword.length === 0) return res.status(400).json({ error: "Please provide a keyword" });
         const destinations = await destinationModel.find().lean();
 
         let filteredDestinations = destinations.filter((destination) => {

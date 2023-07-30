@@ -8,7 +8,7 @@ async function saveDestinationToggle (req, res)
     try 
     {
         const { destinationId } = req.body;
-        if(!destinationId || destinationId.length != 24) return res.status(400).json({ message: 'Destination id not provided' });
+        if(!destinationId || destinationId.length != 24) return res.status(400).json({ error: 'Destination id not provided' });
         const userId = req.userData.userID;
         const savedDestination = await SavedItemsModel.findOne({ savedBy: userId });
         if (savedDestination)
