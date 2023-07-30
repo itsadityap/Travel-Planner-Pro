@@ -1,17 +1,6 @@
 const destinationModel = require('../models/destinations');
 
-async function searchDestination(req, res) {
-    try 
-    {
-        const { keyword } = req.body;
-        const destinations = await destinationModel.find({ name: { $regex: keyword, $options: 'i' } });
-        res.status(200).json({ destinations });
-    } 
-    catch (err) 
-    {
-        res.status(500).json({ message: err.message });
-    }
-}
+const { GetDestination } = require('../dtos/destinationDto');
 
 async function getAllKeywords(req, res) {
     try 
@@ -32,7 +21,7 @@ async function getAllKeywords(req, res) {
             });
 
         });
-        
+
         keywords = [...new Set(keywords)];
 
         keywords.sort();
@@ -41,8 +30,38 @@ async function getAllKeywords(req, res) {
     } 
     catch (err) 
     {
-        console.log(err);
         res.status(500).json({ message: "Internal Server Error, while fetching the keywords" });
+    }
+}
+
+async function searchDestination(req, res) {
+    try 
+    {
+        const { keyword } = req.body;
+        if(!keyword || keyword.length === 0) return res.status(400).json({ message: "Please provide a keyword" });
+        const destinations = await destinationModel.find().lean();
+
+        let filteredDestinations = destinations.filter((destination) => {
+            return (destination.destinationName.toLowerCase().includes(keyword.toLowerCase()) ||
+                    destination.cityName.toLowerCase().includes(keyword.toLowerCase()) ||
+                    destination.state.toLowerCase().includes(keyword.toLowerCase()) ||
+                    destination.category.toLowerCase().includes(keyword.toLowerCase()) ||
+                    destination.attractions.some((attraction) => {
+                        return attraction.toLowerCase().includes(keyword.toLowerCase());
+                    }) ||
+                    destination.landmarks.some((landmark) => {
+                        return landmark.toLowerCase().includes(keyword.toLowerCase());
+                    }));
+        });
+
+        // Transforming the filteredDestinations to DTOs
+        let destinationObject = filteredDestinations.map((destination) => { return new GetDestination( destination._id, destination.destinationName, destination.cityName, destination.latitude, destination.longitude, destination.landmarks, destination.state, destination.description, destination.images, destination.avgTravelExpenses, destination.attractions, destination.category, destination.currentWeather, destination.weatherIcon, destination.currentTemperature ); });
+
+        res.status(200).json({ destinations: destinationObject });
+    } 
+    catch (err)
+    {
+        res.status(500).json({ message: err.message });
     }
 }
 
