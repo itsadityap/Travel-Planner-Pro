@@ -11,7 +11,7 @@ async function addItenery(req, res)
         if(travelStartDate > travelEndDate)
         {
             return res.status(400).json({
-                message: 'Travel start date cannot be greater than travel end date'
+                error: 'Travel start date cannot be greater than travel end date'
             });
         }
         for(let i=0; i<details.length; i++)
@@ -19,7 +19,7 @@ async function addItenery(req, res)
             if(details[i].day < travelStartDate || details[i].day > travelEndDate)
             {
                 return res.status(400).json({
-                    message: 'Day in details cannot be less than travel start date or greater than travel end date'
+                    error: 'Day in details cannot be less than travel start date or greater than travel end date'
                 });
             }
         }
