@@ -80,7 +80,8 @@ async function createdIteniries(req, res)
 {
     try
     {
-        const iten = await ItenaryModel.find({createdBy: req.userData.userId}).lean();
+        const iten = await ItenaryModel.find({createdBy: req.userData.userID}).lean();
+        console.log(iten);
         if(!iten)
         {
             return res.status(200).json({
@@ -88,7 +89,7 @@ async function createdIteniries(req, res)
                 data: []
             });
         }
-        const itenObject = iten.map(it => new IteneryResponse(it._id, it.planName, it.destination, it.travelStartDate, it.travelEndDate, it.travelMode,it.details ,it.estimatedCost, req.userData.name));
+        const itenObject = iten.map(it => new IteneryResponse(it._id, it.planName, it.destination, it.travelStartDate, it.travelEndDate, it.travelMode,it.details ,it.estimatedCost, it.createdBy));
 
         return res.status(200).json({
             message:"Itenery Fetched Succesfully",
