@@ -48,14 +48,23 @@ async function seeItenery(req, res)
         const iten = await ItenaryModel.findById(iteneryId).lean();
         if(!iten)
         {
-            return res.status(404).json({
-                message: 'Itenery does not exist'
+            return res.status(200).json({
+                message: 'Itenery does not exist, create one'
             });
         }
 
         return res.status(200).json({
             message:"Itenery Fetched Succesfully",
-            data: iten
+            data: {
+                id: iten._id,
+                planName: iten.planName,
+                destination: iten.destination,
+                travelStartDate: iten.travelStartDate,
+                travelEndDate: iten.travelEndDate,
+                travelMode: iten.travelMode,
+                details: iten.details,
+                estimatedCost: iten.estimatedCost
+            }
         })
     }
     catch(err)
