@@ -55,7 +55,7 @@ async function getIteneries(req, res) {
         }
         else
         {
-            res.status(404).json({ iteneries: [] });
+            res.status(200).json({ iteneries: [] });
         }
     }
     catch(err)

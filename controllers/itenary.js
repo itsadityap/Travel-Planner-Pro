@@ -80,11 +80,12 @@ async function createdIteniries(req, res)
 {
     try
     {
-        const iten = await ItenaryModel.find({userId: req.userData.userId}).lean();
+        const iten = await ItenaryModel.find({createdBy: req.userData.userId}).lean();
         if(!iten)
         {
-            return res.status(404).json({
-                message: 'Itenery does not exist'
+            return res.status(200).json({
+                message: "No iteneries created",
+                data: []
             });
         }
         const itenObject = iten.map(it => new IteneryResponse(it._id, it.planName, it.destination, it.travelStartDate, it.travelEndDate, it.travelMode,it.details ,it.estimatedCost, req.userData.name));

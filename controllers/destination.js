@@ -20,8 +20,9 @@ async function getDestination(req, res) {
         
         if(!destination)
         {
-            return res.status(404).json({
-                message: 'Destination not found'
+            return res.status(200).json({
+                message: 'No destination found',
+                data: []
             });
         }
 
@@ -85,7 +86,7 @@ async function getAllDestinations(req, res) {
 
         if(!destinations)
         {
-            return res.status(404).json({
+            return res.status(200).json({
                 message: 'Destinations not found'
             });
         }
